@@ -1,9 +1,6 @@
 # Check if Palindrome number or not.
 #Method 1
-from sys import platlibdir
-
-
-def armstr(n):
+def palindrome(n):
     temp=n
     pal=0
     while temp>0:
@@ -16,4 +13,4 @@ def armstr(n):
         print(f'{n} is not Palindrome number.')
 
 n= int(input('Enter a no. '))
-armstr(n)
+palindrome(n)
