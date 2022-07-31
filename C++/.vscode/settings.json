@@ -6,6 +6,7 @@
         "Q4.C": "cpp",
         "1st.C": "cpp",
         "2nd.C": "cpp",
-        "3rd.C": "cpp"
+        "3rd.C": "cpp",
+        "iostream": "cpp"
     }
 }
