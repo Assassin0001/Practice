@@ -20,7 +20,7 @@ int main(){
 
 void updateArr(int arr[]){
   int size;
-  cout<<"Enter size of Array: ";
+  cout<<"Enter updated size of Array: ";
   cin>>size;
   cout<<"Enter elements of array :";
   for(int i=1;i<=size;i++){
