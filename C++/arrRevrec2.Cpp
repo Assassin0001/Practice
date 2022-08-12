@@ -21,7 +21,7 @@ void printArr(int arr[],int n){
 }
 
 void revArr(int arr[],int i,int n){
-    if(i >=n/2){
+    if(i >= n/2){
         return;
     }
     swap(arr[i],arr[n-i-1]);
