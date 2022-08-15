@@ -8,6 +8,8 @@
         "2nd.C": "cpp",
         "3rd.C": "cpp",
         "iostream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp"
     }
 }
