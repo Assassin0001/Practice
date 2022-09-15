@@ -1,0 +1,65 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.container{
+    max-width: 80%;
+    background-color: rgba(248, 162, 4, 0.955);
+    padding: 33px;
+    margin: auto;
+}
+
+.container h1{
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Dancing Font', cursive;
+}
+
+p{
+    text-align: center;
+    font-size:17px;
+}
+
+input, textarea{
+    width: 80%;
+    margin: 11px auto;
+    padding: 7px;
+    font-size: 16px;
+    border:2px solid rgba(255, 119, 0, 0.493);
+    border-radius: 9px;
+    outline: none;
+    font-size: 16px;
+}
+
+form{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.btn{
+    color:white;
+    background: purple;
+    padding: 8px 12px;
+    font-size: 20px;
+    border: 2px solid;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.bg{
+    width:100%;
+    position:absolute;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.submitMsg{
+    font-size: 23px;
+    color: green;
+    font-weight: bold;
+}

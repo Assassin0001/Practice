@@ -1,0 +1,78 @@
+*{
+    margin: 0px;
+    padding: 1px;
+    box-sizing: border-box;
+}
+
+.container{
+    max-width: 85%;
+    background-color: rgba(244, 175, 47, 0.885);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100%;
+    padding: 3rem;
+    border: groove;
+}
+
+body{
+    background-color: grey;
+    padding: 0px;
+}
+
+h1{
+    text-align: center;
+    color: white;
+    font-size: 3rem;
+}
+
+ .container label
+ {
+    font-size: 25px;
+    padding: 5px 0 5px 0;
+    font-family: 'Dancing Script',cursive;
+ }
+
+ input
+ {
+    border-radius: 3px;
+    padding: 3px;
+ }
+
+ option
+ {
+    padding: 3px;
+ }
+
+ .btn{
+    color:rgb(255, 255, 255);
+    border-color: red;
+    background: purple;
+    padding: 8px 12px;
+    font-size: 20px;
+    border: 2px solid;
+    border-radius: 14px;
+    cursor: pointer;
+    margin: auto;
+}
+
+.bg{
+    width:100%;
+    position:absolute;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.column {
+    font-family: 'Noto Sans', sans-serif;
+    float: left;
+    width: 35%;
+    padding: 5px;
+  }
+  
+ .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
