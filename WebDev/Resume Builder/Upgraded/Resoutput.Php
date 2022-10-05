@@ -15,7 +15,7 @@ $sql = "SELECT name, email, branch, highqual, gender, mobno, role, skills FROM r
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    echo "<table border=2 cellpadding=2 cellspacing=2><tr><th>Name</th><th>Email</th<th> Branch</th><th>Highest Qualification</th><th>Gender</th><th>Mobile Number</th><th>Role</th><th>Skills</th></tr>";
+    echo "<table border=2 cellpadding=2 cellspacing=2><tr><th>Name</th><th>Email</th<th>Branch</th><th>Highest Qualification</th><th>Gender</th><th>Mobile Number</th><th>Role</th><th>Skills</th></tr>";
     // output data of each row
     while ($row = $result->fetch_assoc()) {
         echo "<tr><td>" . $row["name"] . "</td><td>" . $row["email"] . "</td><td>" . $row["branch"] . "</td><td>" . $row["highqual"] . "</td><td>" . $row["gender"] . "</td> <td>" . $row["mobno"] .  "</td><td>" . $row["role"] . "</td><td>" . $row["skills"] . "</td><tr></tr>";
