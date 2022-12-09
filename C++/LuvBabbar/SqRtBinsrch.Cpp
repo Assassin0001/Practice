@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int binSearch(int key){
+int sqrtInt(int key){
 	int start = 0;
 	int end = key;
     int ans;
@@ -15,9 +15,10 @@ int binSearch(int key){
           }
           mid = start+(end-start)/2;
     }
+    return ans;
 }
 
 int main(){
     int n;cin>>n;
-    cout<<"Square Root of N is "<<binSearch(n);
+    cout<<"Square Root of N is "<<sqrtInt(n);
 }
