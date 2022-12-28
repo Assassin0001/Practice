@@ -37,7 +37,7 @@ public:
             }
             endingRow--;
 
-            //Printing Starting Row
+            //Printing Starting Col
             for(int index = endingRow; index >= startingRow && count < total; index--){
                 ans.push_back(matrix[index][startingCol]);
                 count++;
