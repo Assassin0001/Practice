@@ -1,32 +1,26 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
 int main() {
-	int t; cin >> t;
-	while (t--) {
-		int n; cin >> n;
-		int* arr = new int[n];
-		for (int i = 0; i < n; i++) {
-			cin >> arr[i];
+	int n, a, b, c, d;
+	cin >> n >> a >> b >> c >> d;
+
+	if (max(b, c) > 0) {
+		int flag1 = b - max(c, 0);
+		int flag2 = c - max(b , 0);
+		if (flag1 == 0 || flag1 == 1 || flag2 == 0 || flag2 == 1) {
+			cout << "Yes" << endl;
+		} else {
+			cout << "No" << endl;
 		}
-		int cnt = 0;
-		bool ans = true;
-		for (int i = 0; i < n - 1; i++) {
-			if (arr[0] != arr[n - 1]) {
-				if (arr[i] != arr[i + 1]) cnt += 2;
-			}
-			else {
-				if (arr[i] != arr[i + 1]) {
-					cnt = cnt + 1;
-					ans = false;
-				}
-			}
-		}
-		if (arr[0] != arr[n - 1]) cout << cnt  << endl;
-		else {
-			if (ans) cout << 0 << endl;
-			else cout << cnt + 1 << endl;
+	} else {
+		if (a == 0 || d == 0) {
+			cout << "Yes" << endl;
+		} else {
+			cout << "No" << endl;
 		}
 	}
+
 	return 0;
 }
