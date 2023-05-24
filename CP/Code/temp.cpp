@@ -14,45 +14,18 @@ typedef pair<ll, ll> pl;
 int main() {
 	//make input output fast
 	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+	int h, int w;
+	vector<string> mat;
 
-	int t; cin >> t;
-	while (t--) {
-		int n; cin >> n;
-		if (n == 3) {
-			ll a, b, c;
-			cin >> a >> b >> c;
-			if ((2 * b) == (a + c)) cout << "NO" << endl;
-			else cout << "YES" << endl;
-		}
-		else {
-			vl v(n);
-			for (int i = 0; i < n; i++) {
-				cin >> v[i];
-			}
+	for (int i = 0; i < h; i++) {
+		string str;
+		mat.PB(str);
+	}
 
-			vl lSum;
-			ll sum = 0;
-			for (int i = 1; i < n; i++) {
-				sum += v[i] - v[i - 1];
-				lSum.PB(sum);
-			}
+	for (int i = 0; i < h; i++) {
+		for (int j = 0; i < w; i++) {
+			//Vertical Direction
 
-			sum = 0;
-			vl rSum;
-			for (int i = n - 1; i > 0; i--) {
-				sum += v[i] - v[i - 1];
-				rSum.PB(sum);
-			}
-
-			reverse(rSum.begin(), rSum.end());
-			bool ans = false;
-			for (int i = 0; i < n - 1; i++) {
-				if (rSum[i] == lSum[i]) ans = true;
-			}
-
-			if (ans) cout << "NO" << endl;
-			else cout << "YES" << endl;
 		}
 	}
-	return 0;
 }
