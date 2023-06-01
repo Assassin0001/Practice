@@ -1,5 +1,18 @@
-<h1>Angular App</h1>
-<p>{{message}}</p>
+<!--String Interpolation-->
+<p>{{ message }}</p>
+
+<!--Class Binding-->
+<h1 [class.text-red]="bool">Angular App</h1>
+
+<!--Style Binding using HTML DOM style-->
+<h1 [style.color] = "bool?'red':'blue'">Style Binding</h1>
+
+<!--Property Binding-->
+<img [src]= "imgUrl" alt ="" height=100px>
+
+<!--Event Binding-->
+<button (click)= "buttonClick()">Click Me</button>
 
 <app-navbar></app-navbar>
-<app-post [fromParent] ='parentMessage'></app-post>
+<app-post [fromParent] ='parentMessage' (messageEvent)='receiveMessage($event)'></app-post>
+

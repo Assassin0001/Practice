@@ -5,6 +5,7 @@ import { Component,OnInit,Input,Output,EventEmitter } from '@angular/core';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
+
 export class PostComponent implements OnInit {
  title: String = "List of Posts" ;
  messagePost: string ='Message Post';
@@ -20,5 +21,10 @@ export class PostComponent implements OnInit {
 
  constructor() { }
  ngOnInit() : void{
+ }
+
+ sendMessage(){
+    //emit message -> outputChildMessage
+   this.messageEvent.emit(this.outputChildMessage);
  }
 }
