@@ -1,18 +1,57 @@
-<!--String Interpolation-->
+<!--
+  String Interpolation
 <p>{{ message }}</p>
 
-<!--Class Binding-->
+  Class Binding
 <h1 [class.text-red]="bool">Angular App</h1>
-
-<!--Style Binding using HTML DOM style-->
+  Style Binding using HTML DOM style
 <h1 [style.color] = "bool?'red':'blue'">Style Binding</h1>
 
-<!--Property Binding-->
+  Property Binding-
 <img [src]= "imgUrl" alt ="" height=100px>
 
-<!--Event Binding-->
+  Event Binding
 <button (click)= "buttonClick()">Click Me</button>
+
+  Event Filtering
+-->
+<!--
+  keyup.enter is event filter
+<input type ="text" (keyup.enter) ="onKeyup(username.value)" #username>
+
+  Two Way Data Binding
+<input type ="text" [(ngModel)] = "userName" (keyup.enter) = onKeyup()>
+-->
+
+<!--One Way vs Two Way DataBinding
+One Way can only bind data from component to view.
+<input type="text" [value] ='textValue' (keyup.enter) = "onKeyup()">
+<input type="text" [(ngModel)] ='textValue' (keyup.enter) = "onKeyup()">
+
 
 <app-navbar></app-navbar>
 <app-post [fromParent] ='parentMessage' (messageEvent)='receiveMessage($event)'></app-post>
+-->
 
+<div class ="form-area">
+  <h1>Post Form</h1>
+  <input type = "text" placeholder ="Post Title" [(ngModel)] = "postTitle">
+  <br>
+  <textarea cols="30" rows="10" placeholder="Post Details" [(ngModel)] = "postDetails"></textarea>
+  <br>
+  <input type = "text" placeholder ="Post Img Url" [(ngModel)] = "imgUrl">
+  <br>
+  <input type = "text" placeholder ="Post Url" [(ngModel)] = "postUrl">
+  <br>
+  <input type="checkbox" [(ngModel)] = "addBackground"> Add Background
+</div>
+
+<div class="preview-area">
+  <h1>{{postTitle}}</h1>
+  <br>
+  <p>{{postDetails}}</p>
+  <br>
+  <img [src]="imgUrl" alt="Alt-img">
+  <br>
+  <a [href] ="postUrl" target="_blank">More Details</a>
+</div>\
