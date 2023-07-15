@@ -31,7 +31,6 @@ One Way can only bind data from component to view.
 
 <app-navbar></app-navbar>
 <app-post [fromParent] ='parentMessage' (messageEvent)='receiveMessage($event)'></app-post>
--->
 
 <div class ="form-area">
   <h1>Post Form</h1>
@@ -54,4 +53,6 @@ One Way can only bind data from component to view.
   <img [src]="imgUrl" alt="Alt-img">
   <br>
   <a [href] ="postUrl" target="_blank">More Details</a>
-</div>\
+</div>
+  -->
+  <app-post-form></app-post-form>
