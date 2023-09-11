@@ -34,27 +34,64 @@ public:
 	}
 };
 
+void helper(vector<vector<int>>& matrix, vector<int> &ans) {
+	int m = matrix.size(), n = matrix[0].size();
+	if (m <= 0 || n <= 0)
+		return;
+	int rows = 0, rowsend = m - 1;
+	int cols = 0, colsend = n - 1;
+
+	while (rows <= rowsend && cols <= colsend)
+	{
+		// right
+		for (int i = cols; i <= colsend; i++)
+			ans.push_back(matrix[rows][i]);
+		rows++;
+
+		//  down
+		for (int i = rows; i <= rowsend; i++)
+			ans.push_back(matrix[i][colsend]);
+		colsend--;
+
+		if (rows > rowsend)
+			break;
+		//  left
+		for (int i = colsend; i >= cols; i--)
+			ans.push_back(matrix[rowsend][i]);
+		rowsend--;
+
+		if (cols > colsend)
+			break;
+		//  up
+		for (int i = rowsend; i >= rows; i--)
+			ans.push_back(matrix[i][cols]);
+		cols++;
+	}
+	reverse(ans.begin(), ans.end());
+	return;
+}
+
 int main() {
 	//make input output fast
 	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
 	int t = 1; //cin >> t;
 	while (t--) {
-		read(n);
-		//find divisors from 1-9
-		unordered_set<ll> div;
-		for (int i = 1; i < 10; i++) { if (n % i == 0) div.insert(n / i); }
-		//Iterate till n
-		cout << 1;
-		for (int i = 1; i <= n; ++i)
-		{
-			ll minele = LONG_MAX;
-			for (auto it : div) {
-				if (i % it == 0) minele = min(minele, (n / it));
+		read(n); read(m);
+		//Reading Input
+		vector<vector<int>> matrix;
+		for (int row = 0; row < n; row++) {
+			vector<int> temp;
+			for (int col = 0; col < m; col++) {
+				read(x);
+				temp.push_back(x);
 			}
-			if (minele != LONG_MAX) cout << minele;
-			else cout << "-";
+			matrix.push_back(temp);
 		}
+
+		vector<int> ans;
+		helper(matrix, ans);
+		for (auto it : ans) cout << it << " ";
 	}
 	return 0;
 }
