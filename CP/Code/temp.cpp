@@ -34,64 +34,28 @@ public:
 	}
 };
 
-void helper(vector<vector<int>>& matrix, vector<int> &ans) {
-	int m = matrix.size(), n = matrix[0].size();
-	if (m <= 0 || n <= 0)
-		return;
-	int rows = 0, rowsend = m - 1;
-	int cols = 0, colsend = n - 1;
-
-	while (rows <= rowsend && cols <= colsend)
-	{
-		// right
-		for (int i = cols; i <= colsend; i++)
-			ans.push_back(matrix[rows][i]);
-		rows++;
-
-		//  down
-		for (int i = rows; i <= rowsend; i++)
-			ans.push_back(matrix[i][colsend]);
-		colsend--;
-
-		if (rows > rowsend)
-			break;
-		//  left
-		for (int i = colsend; i >= cols; i--)
-			ans.push_back(matrix[rowsend][i]);
-		rowsend--;
-
-		if (cols > colsend)
-			break;
-		//  up
-		for (int i = rowsend; i >= rows; i--)
-			ans.push_back(matrix[i][cols]);
-		cols++;
-	}
-	reverse(ans.begin(), ans.end());
-	return;
-}
-
 int main() {
 	//make input output fast
 	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-	int t = 1; //cin >> t;
+	int t; cin >> t;
 	while (t--) {
-		read(n); read(m);
-		//Reading Input
-		vector<vector<int>> matrix;
-		for (int row = 0; row < n; row++) {
-			vector<int> temp;
-			for (int col = 0; col < m; col++) {
-				read(x);
-				temp.push_back(x);
-			}
-			matrix.push_back(temp);
+		read(n);
+		string s; cin >> s;
+		int idx = -1;
+		for (int i = 0; i < n; i++) {
+			if (s[i] == '1') { idx = i; break; }
 		}
 
-		vector<int> ans;
-		helper(matrix, ans);
-		for (auto it : ans) cout << it << " ";
+		string ans;
+		if (idx == -1 || idx > n - 3) ans = s;
+		else {
+			for (int i = 0; i < n; i++) {
+				if (i == idx) ans.push_back('1');
+				else ans.push_back('0');
+			}
+		}
+		cout << ans << endl;
 	}
 	return 0;
 }
