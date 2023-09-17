@@ -34,28 +34,31 @@ public:
 	}
 };
 
+bool checkPalin(string& s) {
+	int i = 0, j = s.length() - 1;
+	while (i <= j) {
+		if (s[i++] != s[j--]) return false;
+	}
+	return true;
+}
+
 int main() {
 	//make input output fast
 	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-	int t; cin >> t;
+	int t = 1; //cin >> t;
 	while (t--) {
-		read(n);
 		string s; cin >> s;
-		int idx = -1;
-		for (int i = 0; i < n; i++) {
-			if (s[i] == '1') { idx = i; break; }
-		}
+		int n = s.length(), maxLen = 1;
 
-		string ans;
-		if (idx == -1 || idx > n - 3) ans = s;
-		else {
-			for (int i = 0; i < n; i++) {
-				if (i == idx) ans.push_back('1');
-				else ans.push_back('0');
+		for (int i = 0; i < n; i++) {
+			string temp;
+			for (int j = i; j < n; j++) {
+				temp.push_back(s[j]);
+				if (checkPalin(temp)) maxLen = max(maxLen, j - i + 1);
 			}
 		}
-		cout << ans << endl;
+		cout << maxLen << endl;
 	}
 	return 0;
 }
