@@ -35,13 +35,28 @@ public:
 };
 
 void solve() {
+	read(N); int tgt; cin >> tgt;
+	vl nums;
+	int sum = 0;
+	for (int i = 0; i < N - 1; i++) {
+		read(x); nums.PB(x);
+		sum  += x;
+	}
+
+	int minele = *min_element(nums.begin(), nums.end());
+	int maxele = *max_element(nums.begin(), nums.end());
+
+	sum -= (minele + maxele);
+	int reqd = max(0, tgt - sum);
+	if (reqd <= 100) cout << reqd << endl;
+	else cout << -1 << endl;
 }
 
 int main() {
 	//make input output fast
 	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-	int t; cin >> t;
+	int t = 1; //cin >> t;
 	while (t--) {
 		solve();
 	}
