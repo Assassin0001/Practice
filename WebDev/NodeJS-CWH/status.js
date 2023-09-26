@@ -1,4 +1,5 @@
 //CommonJS Module Export
+
 hero = {
     name: "Arthur",
     health: 1500,

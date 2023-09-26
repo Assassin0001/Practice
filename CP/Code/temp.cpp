@@ -34,12 +34,22 @@ public:
 	}
 };
 
-bool checkPalin(string& s) {
-	int i = 0, j = s.length() - 1;
-	while (i <= j) {
-		if (s[i++] != s[j--]) return false;
+void solve() {
+	read(N); int tgt; cin >> tgt;
+	vl nums;
+	int sum = 0;
+	for (int i = 0; i < N - 1; i++) {
+		read(x); nums.PB(x);
+		sum  += x;
 	}
-	return true;
+
+	int minele = *min_element(nums.begin(), nums.end());
+	int maxele = *max_element(nums.begin(), nums.end());
+
+	sum -= (minele + maxele);
+	int reqd = max(0, tgt - sum);
+	if (reqd <= 100) cout << reqd << endl;
+	else cout << -1 << endl;
 }
 
 int main() {
@@ -48,17 +58,7 @@ int main() {
 
 	int t = 1; //cin >> t;
 	while (t--) {
-		string s; cin >> s;
-		int n = s.length(), maxLen = 1;
-
-		for (int i = 0; i < n; i++) {
-			string temp;
-			for (int j = i; j < n; j++) {
-				temp.push_back(s[j]);
-				if (checkPalin(temp)) maxLen = max(maxLen, j - i + 1);
-			}
-		}
-		cout << maxLen << endl;
+		solve();
 	}
 	return 0;
 }

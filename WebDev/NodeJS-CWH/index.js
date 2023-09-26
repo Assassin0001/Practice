@@ -1,9 +1,10 @@
-//Hero Summoning
-/*const hero = require("./status");
+/* 
+Basisc Working
+const hero = require("./status");
 console.log("Welcome Hero,", hero.name,"!");
 */
 
-//System Modules
+//OS Module
 const os = require('os');
 console.log(os.freemem());
 console.log(os.release());
