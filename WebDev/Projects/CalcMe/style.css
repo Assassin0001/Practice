@@ -1,0 +1,292 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
+@font-face {
+  font-family: "digital-font";
+  src: url("font.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: linear-gradient(45deg, #B2B2B2,#001C30);
+  position: absolute;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: #64CCC5;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header {
+  height: 90px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 0vw 4vw;
+  position: relative;
+}
+
+nav {
+  display: flex;
+  gap: 4vw;
+  align-items: center;
+}
+
+.logo h2 {
+  font-size: 1.8vw;
+  font-weight: 700;
+}
+
+nav h4 {
+  font-size: 1.5vw;
+}
+
+.menu-icon {
+  font-size: 1.6vw;
+  font-weight: 800;
+  display: none;
+}
+
+.main {
+  width: 100%;
+  height: calc(100% - 90px);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.about {
+  padding: 1vw;
+  color: #fff;
+  width: 45%;
+  font-size: 2vmin;
+}
+
+.title {
+  margin: 1vw 0;
+}
+
+.imp {
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  animation: typewriter 2s steps(13) infinite alternate,
+      blink 800ms steps(13) infinite normal;
+  border-right: 5px solid black;
+  color: #64CCC5;
+}
+
+@keyframes typewriter {
+  from {
+      width: 0%;
+  }
+
+  to {
+      width: 25%;
+  }
+}
+
+@keyframes blink {
+  from {
+      border-color: black;
+  }
+
+  to {
+      border-color: transparent;
+  }
+}
+
+.calculator {
+  border: 1px solid #717377;
+  padding: 1vw;
+  position: relative;
+  border-radius: 16px;
+  background-color: transparent;
+  box-shadow: 0px 3px 15px rgba(113, 115, 119, 0.5);
+  background:  #3C4048;
+}
+
+#inputBox {
+  width: 320px;
+  border: none;
+  padding: 24px;
+  margin: 10px;
+  background: #a1d9ba;
+  font-size: 40px;
+  text-align: right;
+  cursor: pointer;
+  color: #000000;
+  border-radius: 7px;
+  font-family: "digital-font", sans-serif;
+}
+
+input::placeholder {
+  color: #000000;
+}
+
+.Row {
+  display: flex;
+  justify-content: space-evenly;
+  /* gap: 4vw; */
+}
+
+button {
+  border: none;
+  width: 2.95vmax;
+  height: 2.9vmax;
+  margin: 1.2vmin;
+  border-radius: 4px;
+  background: #353bde;
+  color: #ffffff;
+  font-size: 1.5vmax;
+  box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.equalBtn {
+  background-color: #fb7c14;
+}
+
+#delbtn {
+  color: red;
+}
+
+#clear {
+  background-color: whitesmoke;
+  color: #009118;
+}
+
+.operator {
+  background: black;
+  color: #6dee0a;
+}
+
+/* ***************************************************************** */
+
+@media (max-width: 650px) {
+  .header {
+    height: 60px;
+    padding: 0 5vw;
+    color: #fff;
+  }
+
+  .logo h2 {
+    font-size: 6vw;
+  }
+
+  nav h4 {
+    font-size: 5vw;
+    display: none;
+  }
+
+  .menu-icon {
+    padding: 0;
+    background: none;
+    border: none;
+    display: block;
+    font-size: 5vw;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .menu-icon:hover{
+    color:seagreen;
+  }
+
+  .about {
+    display: block;
+    width: 90%;
+    margin-bottom: 1.8vmax;
+    font-size: 1.8vmax;
+  }
+
+  @keyframes typewriter {
+    from {
+        width: 0vw;
+    }
+  
+    to {
+        width: 44vw;
+    }
+  }
+  
+  @keyframes blink {
+    from {
+        border-color: black;
+    }
+  
+    to {
+        border-color: transparent;
+    }
+  }
+
+  .main {
+    height: calc(100% - 60px);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .calculator {
+    border: 1px solid #717377;
+    padding: 1vw;
+    position: relative;
+    border-radius: 16px;
+    background-color: transparent;
+    box-shadow: 0px 3px 15px rgba(113, 115, 119, 0.5);
+    background:  #3C4048;
+    margin-top: 2vw;
+  }
+
+  #inputBox {
+    width: 70vw;
+    border: none;
+    padding: 1vw;
+    margin: 2.5vw;
+    height: 10vmin;
+    background: #a1d9ba;
+    font-size: 5vw;
+    text-align: right;
+    cursor: pointer;
+    color: #000000;
+    border-radius: 7px;
+    font-family: "digital-font", sans-serif;
+  }
+
+  button {
+    border: none;
+    width: 5vmax;
+    height: 6vmax;
+    margin: 1.8vmin;
+    border-radius: 4px;
+    background: #353bde;
+    color: #ffffff;
+    font-size: 2.8vw;
+    box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+  }
+}
