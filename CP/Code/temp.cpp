@@ -1,62 +1,35 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-typedef long long int ll;
-typedef unordered_map<ll, ll> ml;
-typedef vector<ll> vl;
-typedef pair<ll, ll> pl;
-#define F first
-#define S second
+#define ll long long int
+#define ull unsigned long long int
 #define PB push_back
-#define POB pop_back
-#define MP make_pair
+#define yes cout<<"YES"<<endl
+#define no cout<<"NO"<<endl
+#define f first
+#define s second
 #define read(x) ll x;cin>>x
 #define show(x) cout<<x<<endl
-#define yes cout<<"Yes"<<endl
-#define no cout<<"No"<<endl
-#define PII pair<int, int>
-
-//Practice Comparators
-//Sorted ascending by first element and ascending by second element
-class Comp {
-public:
-	bool operator()(PII below, PII above)
-	{
-		if (below.first > above.first) {
-			return true;
-		}
-		else if (below.first == above.first
-		         && below.second > above.second) {
-			return true;
-		}
-
-		return false;
-	}
-};
+#define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 
 void solve() {
-	read(N); int tgt; cin >> tgt;
-	vl nums;
-	int sum = 0;
-	for (int i = 0; i < N - 1; i++) {
-		read(x); nums.PB(x);
-		sum  += x;
+	read(N); read(M);
+	vector<int> days(M);
+	for (int i = 0; i < M; i++) {
+		cin >> days[i];
 	}
-
-	int minele = *min_element(nums.begin(), nums.end());
-	int maxele = *max_element(nums.begin(), nums.end());
-
-	sum -= (minele + maxele);
-	int reqd = max(0, tgt - sum);
-	if (reqd <= 100) cout << reqd << endl;
-	else cout << -1 << endl;
+	sort(days.begin(), days.end());
+	int j = 0;
+	for (int i = 1; i <= N; i++) {
+		if (i > days[j]) {j++;}
+		cout << days[j] - i << endl;
+	}
 }
 
 int main() {
-	//make input output fast
-	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-
-	int t = 1; //cin >> t;
+	fast_io;
+	int t; //cin >> t;
+	t = 1;
 	while (t--) {
 		solve();
 	}

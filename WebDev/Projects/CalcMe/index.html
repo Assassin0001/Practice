@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <title>Calculate Me</title>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="Logo">
+        <h2>CalcMe</h2>
+      </div>
+      <nav>
+        <h4><a href="#">Works</a></h4>
+        <h4><a href="#">Contact Me</a></h4>
+        <a href ="#" class="menu-icon">
+          <i class="ri-menu-3-line"></i>
+        </a>
+      </nav>
+    </div>
+
+    <div class="main">
+      <section class="about">
+        <p class="intro">
+        <h1 class="title">Welcome to <span class="imp">CalculateMe!</span></h1>
+          An advanced calculator incorporating essential arithmetic
+          functions (addition, subtraction, multiplication, and
+          division) , demonstrates precision and efficiency. This dynamic tool
+          provides a reliable solution for a wide range of everyday mathematical
+          computations.
+        </p>
+      </section>
+      <section class="calculator">
+        <div class="screen">
+          <input type="text" id="inputBox" placeholder="0" />
+        </div>
+        <div class="Row">
+          <button  id="clear">AC</button>
+          <button class="operator" id="delbtn">DEL</button>
+          <button class="operator">%</button>
+          <button class="operator">/</button>
+        </div>
+        <div class="Row">
+          <button class="button">7</button>
+          <button class="button">8</button>
+          <button class="button">9</button>
+          <button class="operator">*</button>
+        </div>
+        <div class="Row">
+          <button class="button">4</button>
+          <button class="button">5</button>
+          <button class="button">6</button>
+          <button class="operator">-</button>
+        </div>
+        <div class="Row">
+          <button class="button">1</button>
+          <button class="button">2</button>
+          <button class="button">3</button>
+          <button class="operator">+</button>
+        </div>
+        <div class="Row">
+          <button class="button">00</button>
+          <button class="button">0</button>
+          <button class="button">.</button>
+          <button class="equalBtn">=</button>
+        </div>
+      </section>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -41,7 +41,7 @@ const Product = new mongoose.model("Product", productSchema);
 app.post("/api/v1/product/new", async (req, res) => {
   try {
     const product = await Product.create(req.body);
-
+    console.log(req.body);
     res.status(201).json({
       success: true,
       product,
@@ -76,6 +76,7 @@ app.get("/api/v1/products", async (req, res) => {
 //Update Product
 app.put("/api/v1/product/:id", async (req, res) => {
   try {
+    //findByIdAndUpdate: Mongoose Method taking three arguments -> id, content {to Update}, options
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       useFindAndModify: false,
