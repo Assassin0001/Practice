@@ -88,34 +88,7 @@ nav h4 {
 }
 
 .imp {
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: bottom;
-  animation: typewriter 2s steps(13) infinite alternate,
-    blink 800ms steps(13) infinite normal;
-  border-right: 5px solid black;
   color: #64ccc5;
-}
-
-@keyframes typewriter {
-  from {
-    width: 0%;
-  }
-
-  to {
-    width: 25%;
-  }
-}
-
-@keyframes blink {
-  from {
-    border-color: black;
-  }
-
-  to {
-    border-color: transparent;
-  }
 }
 
 .calculator {
@@ -186,6 +159,7 @@ button {
 .sidenav {
   display: none;
 }
+
 /* ***************************************************************** */
 
 @media (max-width: 650px) {
@@ -219,26 +193,6 @@ button {
     width: 90%;
     margin-bottom: 1.8vmax;
     font-size: 1.8vmax;
-  }
-
-  @keyframes typewriter {
-    from {
-      width: 0vw;
-    }
-
-    to {
-      width: 44vw;
-    }
-  }
-
-  @keyframes blink {
-    from {
-      border-color: black;
-    }
-
-    to {
-      border-color: transparent;
-    }
   }
 
   .main {
