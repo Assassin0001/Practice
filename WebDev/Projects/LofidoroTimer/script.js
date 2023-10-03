@@ -6,31 +6,33 @@ const resumeBtn = document.querySelector(".resumeBtn");
 const resetBtn = document.querySelector(".resetBtn");
 const pomoCountsDisplay = document.querySelector(".lofiCountsDisplay");
 
-
 //making variables
 let WORK_TIME = 25 * 60;
-const BREAK_TIME = 5 * 60;
+// const BREAK_TIME = 5 * 60;
 let timerID = null;
-let breakDone = false;
+let isBreak = false;
 let totalCount = 0;
 let paused = false;
 let running = false;
 
 const updateTimer = () => {
-  const selectedRadio = document.querySelector('input[name="timerType"]:checked');
+  const selectedRadio = document.querySelector(
+    'input[name="timerType"]:checked'
+  );
   const timertext = selectedRadio ? `${selectedRadio.value}:00` : "25:00";
-  document.querySelector('.lofidoro-timer').innerHTML = timertext;
+  document.querySelector(".lofidoro-timer").innerHTML = timertext;
 
   WORK_TIME = Number(selectedRadio.value) * 60;
+  if (WORK_TIME < 1500) isBreak = true;
 };
 
 document.querySelectorAll('input[name="timerType"]').forEach((radio) => {
-  radio.addEventListener("change",()=>{
-    paused = false, running = false;
+  radio.addEventListener("change", () => {
+    (paused = false), (running = false);
     stopTimer();
     updateTimer();
   });
-})
+});
 
 //Title Updation Function
 const updateTitle = (msg) => {
@@ -60,11 +62,9 @@ const countDown = (time) => {
     if (time < 0) {
       running = false;
       stopTimer();
-      if (!breakDone) {
-        timerID = startTimer(BREAK_TIME);
-        breakDone = true;
-        updateTitle("It's LofI-Time");
-        running = false;
+      if (isBreak) {
+        isBreak = false;
+        updateTitle("Completed Break Time.");
       } else {
         updateTitle("Completed a focus session");
         setTimeout(
@@ -110,22 +110,17 @@ const showPomoCounts = () => {
 
 //Adding eventListener to startButton
 startBtn.addEventListener("click", () => {
-  // if (paused) {
-  //   const currentTime = getTimeInSeconds(timer.textContent);
-  //   timerID = startTimer(currentTime);
-  //   paused = false;
-  //   !breakDone ? updateTitle("It's Work Time") : updateTitle("It's LofI-Time");
-  // }
-  //Adding resume timer to startButton
-    if (!running) {
-      timerID = startTimer(WORK_TIME);
-      updateTitle("Focus Mode Started");
-    }
+  if (!running) {
+    timerID = startTimer(WORK_TIME);
+    !isBreak
+      ? updateTitle("Focus Mode Started")
+      : updateTitle("Break Time Started");
+  }
 });
 
 //Adding eventListener to resetButton
 resetBtn.addEventListener("click", () => {
-  paused = false, running =false;
+  (paused = false), (running = false);
   stopTimer();
   updateTimer();
 });
@@ -138,11 +133,11 @@ pauseBtn.addEventListener("click", () => {
 });
 
 //Adding eventListener to resumeButton
-resumeBtn.addEventListener('click', () => {
+resumeBtn.addEventListener("click", () => {
   if (paused) {
     const currentTime = getTimeInSeconds(timer.textContent);
     timerID = startTimer(currentTime);
     paused = false;
-    (!breakDone) ? updateTitle("It's Work Time") : updateTitle("It's LofI-Time");
+    !isBreak ? updateTitle("It's Work Time") : updateTitle("It's LoFI-Time");
   }
 });

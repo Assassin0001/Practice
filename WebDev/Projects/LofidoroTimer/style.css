@@ -1,4 +1,5 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap");
 
 body,
 html {
@@ -55,8 +56,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 2.5vmax;
+  padding-top: 2.5vmax;
+  padding-left: 2.4vmax;
   position: relative;
 }
 
@@ -67,6 +68,7 @@ body {
 .top-left h2 {
   font-size: 2.9vmin;
   font-weight: 800;
+  margin-bottom: -0.2vmax;
 }
 
 .top-left h4 {
@@ -80,9 +82,8 @@ body {
   margin-left: 0.45vmin;
 }
 
-
 .lofidoro-container {
-  background-color: rgb(0, 0, 0, 0.5);
+  /* background-color: rgb(0, 0, 0, 0.5); */
   width: 100%;
   height: calc(100% - 90px);
   font-weight: bold;
@@ -103,9 +104,20 @@ body {
   display: none;
 }
 
+.form-check-input:checked + label {
+  background-color: white;
+  color: black;
+}
+
+/* Additional styling for the unchecked state */
+.form-check-input:not(:checked) + label {
+  background-color: rgba(0, 0, 0, 0); /* Set to transparent or any other color */
+  color: white;
+}
+
 .lofidoro-container label.form-check-label {
-  font-size: 1.125rem;
-  line-height: 1.5rem;
+  font-size: 2.85vmin;
+  line-height: 3.6vmin;
 }
 
 .lofidoro-container .btn {
@@ -118,25 +130,28 @@ body {
   border: 1px solid var(--foreground-color);
   border-radius: 500px;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   padding: 0.5rem 1rem;
-  font-size: 1.5rem;
+  font-size: 2.85vmin;
   font-family: "Space Grotesk", sans-serif;
 }
 
 .lofidoro-durations {
+  margin: 1vh 0;
+  height: 10vh;
   width: 100%;
+  max-width: 1375px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.lofidoro-durations>div:first-child {
+.lofidoro-durations > div:first-child {
   padding-left: 0;
   position: relative;
 }
 
-.lofidoro-durations>div {
+.lofidoro-durations > div {
   margin-right: 1rem;
   padding-left: 0;
 }
@@ -145,9 +160,8 @@ body {
   display: block;
   min-height: 1.25rem;
   padding-left: 1.5em;
-  margin-bottom: .125rem;
+  margin-bottom: 0.125rem;
 }
-
 
 .btn {
   display: inline-block;
@@ -168,10 +182,6 @@ body {
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.bi:hover, .startBtn:hover{
-  color: black;
-}
-
 .hidden {
   display: none;
 }
@@ -183,17 +193,16 @@ body {
 }
 
 .lofidoro-timer {
-  font-size: 90px;
+  font-size: 11.5vmin;
   font-weight: 500;
-  margin-bottom: 30px;
+  margin: 1vh 0;
   letter-spacing: 4.5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.9),
-    0px 0px 30px rgba(0, 0, 0, 0.5);
   background-color: transparent;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
+  width: 35vmin;
+  height: 22vmin;
   display: grid;
+  /* justify-content: center;
+  align-items: center; */
   place-items: center;
 }
 
@@ -203,27 +212,18 @@ body {
   background-color: transparent;
 }
 
+/* No Circle / Border radius */
 .lofidoro-clock-actions {
+  height: 10vh;
+  margin: 1vh 0;
   width: 100%;
-  max-width: 500px;
+  max-width: 550px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.lofidoro-clock-actions button {
-  font-size: 22px;
-  font-weight: 700;
-  padding: 16px;
-  color: #ffffff;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-  transition: transform 0.4s ease-in-out;
-}
-
-.lofidoro-clock-actions button:hover {
+.lofidoro-clock-actions .btn:hover .bi {
   color: #000;
   transform: scale(1.1);
 }
@@ -233,7 +233,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 1.5vh;
   animation: swipe-up 1s ease-in;
 }
 
@@ -277,25 +277,38 @@ body {
     margin-block: 40px;
   }
 
-  .lofidoro-durations{
-    height: 20%;
+  .lofidoro-container label.form-check-label {
+    font-size: 3.85vmin;
+    line-height: 4.6vmin;
+  }
+  .lofidoro-container .btn {
+    font-size: 3.85vmin;
+    font-family: "Space Grotesk", sans-serif;
+  }
+  .lofidoro-durations {
+    margin: 0.5vh;
+    height: 17vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
   .lofidoro-timer {
     width: 220px;
     height: 220px;
     font-size: 40px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.9),
+      0px 0px 30px rgba(0, 0, 0, 0.5);
+    /* border-radius: 50%; */
   }
 
   .lofidoro-clock-actions {
+    height: 17vh;
     justify-content: center;
     flex-wrap: wrap;
   }
 
   .lofidoro-clock-actions button {
-    width: 40%;
-    margin: 10px;
+    width: 25%;
+    margin: 12px;
   }
 }
