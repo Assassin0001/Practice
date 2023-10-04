@@ -1,40 +1,42 @@
-let input = document.getElementById('inputBox');
-let buttons = document.querySelectorAll('button');
+let input = document.getElementById("inputBox");
+let buttons = document.querySelectorAll("button");
 
 let string = "";
 let arr = Array.from(buttons);
-arr.forEach(button => {
-  button.addEventListener('click', (e) => {
-    if (e.target.innerHTML == '=') {
+arr.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    if (e.target.innerHTML == "=") {
       try {
         string = eval(string);
         if (isNaN(string)) {
-          throw new Error('')
+          throw new Error("");
         }
         input.value = string;
-
       } catch (error) {
         input.value = "Syntax Error";
         setTimeout(() => {
           input.value = "";
-        }, 2000)
+        }, 2000);
       }
       string = eval(string);
       input.value = string;
-    }
-
-    else if (e.target.innerHTML == 'AC') {
+    } else if (e.target.innerHTML == "AC") {
       string = "";
       input.value = string;
-    }
-    else if (e.target.innerHTML == 'DEL') {
+    } else if (e.target.innerHTML == "DEL") {
       string = string.substring(0, string.length - 1);
       input.value = string;
-    }
-    else {
+    } else {
       string += e.target.innerHTML;
       input.value = string;
     }
+  });
+});
 
-  })
-})
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}

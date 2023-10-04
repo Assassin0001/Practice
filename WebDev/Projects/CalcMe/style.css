@@ -19,7 +19,7 @@ body {
 }
 
 body {
-  background: linear-gradient(45deg, #B2B2B2,#001C30);
+  background: linear-gradient(45deg, #b2b2b2, #001c30);
   position: absolute;
 }
 
@@ -29,7 +29,7 @@ a {
 }
 
 a:hover {
-  color: #64CCC5;
+  color: #64ccc5;
   text-decoration: none;
   cursor: pointer;
 }
@@ -88,34 +88,7 @@ nav h4 {
 }
 
 .imp {
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: bottom;
-  animation: typewriter 2s steps(13) infinite alternate,
-      blink 800ms steps(13) infinite normal;
-  border-right: 5px solid black;
-  color: #64CCC5;
-}
-
-@keyframes typewriter {
-  from {
-      width: 0%;
-  }
-
-  to {
-      width: 25%;
-  }
-}
-
-@keyframes blink {
-  from {
-      border-color: black;
-  }
-
-  to {
-      border-color: transparent;
-  }
+  color: #64ccc5;
 }
 
 .calculator {
@@ -125,7 +98,7 @@ nav h4 {
   border-radius: 16px;
   background-color: transparent;
   box-shadow: 0px 3px 15px rgba(113, 115, 119, 0.5);
-  background:  #3C4048;
+  background: #3c4048;
 }
 
 #inputBox {
@@ -183,6 +156,10 @@ button {
   color: #6dee0a;
 }
 
+.sidenav {
+  display: none;
+}
+
 /* ***************************************************************** */
 
 @media (max-width: 650px) {
@@ -203,7 +180,7 @@ button {
 
   .menu-icon {
     padding: 0;
-    background: none;
+    background: transparent;
     border: none;
     display: block;
     font-size: 5vw;
@@ -211,35 +188,11 @@ button {
     cursor: pointer;
   }
 
-  .menu-icon:hover{
-    color:seagreen;
-  }
-
   .about {
     display: block;
     width: 90%;
     margin-bottom: 1.8vmax;
     font-size: 1.8vmax;
-  }
-
-  @keyframes typewriter {
-    from {
-        width: 0vw;
-    }
-  
-    to {
-        width: 44vw;
-    }
-  }
-  
-  @keyframes blink {
-    from {
-        border-color: black;
-    }
-  
-    to {
-        border-color: transparent;
-    }
   }
 
   .main {
@@ -258,7 +211,7 @@ button {
     border-radius: 16px;
     background-color: transparent;
     box-shadow: 0px 3px 15px rgba(113, 115, 119, 0.5);
-    background:  #3C4048;
+    background: #3c4048;
     margin-top: 2vw;
   }
 
@@ -288,5 +241,40 @@ button {
     font-size: 2.8vw;
     box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1);
     cursor: pointer;
+  }
+
+  .sidenav {
+    display: block;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  .sidenav a {
+    padding: 8px 6px 8px 24px;
+    text-decoration: none;
+    font-size: 3vmax;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav a:hover {
+    color: #64ccc5;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    left: 0px;
+    font-size: 6vmax;
+    margin-right: 0;
   }
 }

@@ -1,31 +1,96 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Lofidoro Timer</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="/pomoicon.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Lofidoro Timer</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <link rel="icon" type="image/x-icon" href="/pomoicon.png">
-</head>
-
-<body>
-  <div class="bg-image"></div>
-  <div class="container">
-    <div class="timer">25:00</div>
-    <h1 class="title">Click Start for Focus Mode</h1>
-    <div class="buttons">
-      <button class="startBtn" style="--clr: #008000">Start</button>
-      <button class="pauseBtn" style="--clr: #ff0000">Pause</button>
-      <button class="resumeBtn" style="--clr: #5151db">Resume</button>
-      <button class="resetBtn" style="--clr: #ffa500">Reset</button>
+  <body>
+    <div class="bg-wrapper">
+      <img
+        id="bg-image"
+        data-src="/Lofidorobg.jpg"
+        width="100%"
+        height="100%"
+        src="lofidorobg.jpg"
+        style="display: block"
+      />
     </div>
-    <div class="lofiCountsDisplay">
-      <span class="count"> 0</span>
-      <p>Lofidoro Completed</p>
+    <div class="top">
+      <div class="top-left">
+        <h2>LofiDoro</h2>
+        <h4>by<span class="auth">D E K U</span></h4>
+      </div>
     </div>
-  </div>
-  <script src="script.js"></script>
-</body>
+    <div class="lofidoro-container">
+      <div class="lofidoro-durations">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="timerType"
+            id="exampleRadios1"
+            value="25"
+          />
+          <label
+            class="form-check-label btn btn-outline-light"
+            for="exampleRadios1"
+          >
+            Lofidoro
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="timerType"
+            id="exampleRadios2"
+            value="05"
+          />
+          <label
+            class="form-check-label btn btn-outline-light"
+            for="exampleRadios2"
+          >
+            Short Break
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="timerType"
+            id="exampleRadios3"
+            value="15"
+          />
+          <label
+            class="form-check-label btn btn-outline-light"
+            for="exampleRadios3"
+          >
+            Long Break
+          </label>
+        </div>
+      </div>
 
+      <div class="lofidoro-timer">25:00</div>
+      <div class="title"></div>
+      <div class="lofidoro-clock-actions">
+        <div class="btn btn-outline-light startBtn">Start</div>
+        <div class="resetBtn"><i class="bi bi-arrow-clockwise resetBtn"></i></div>
+      </div>
+      <div class="lofiCountsDisplay">
+        <span class="count"> 0</span>
+        <p>Lofidoro Completed</p>
+      </div>
+    </div>
+    <div class="bottom"></div>
+    <script src="script.js"></script>
+  </body>
 </html>
