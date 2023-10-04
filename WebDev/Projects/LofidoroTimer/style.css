@@ -1,3 +1,4 @@
+/* Global Styles */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap");
 
@@ -5,10 +6,6 @@ body,
 html {
   height: 100%;
   width: 100%;
-}
-
-* {
-  color: #fff;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -22,12 +19,10 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-  --foreground-color: #fff;
-  --background-color: #000;
-  --btn-border-color: transparent;
-  color: var(--foreground-color);
+  color: #fff;
 }
 
+/* Background Styles */
 .bg-wrapper {
   position: fixed;
   top: 0;
@@ -41,14 +36,11 @@ body {
 
 #bg-image {
   object-fit: cover;
-  filter: blur(2px);
   object-position: center;
   display: block;
-  /* background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat; */
 }
 
+/* Header and Footer Styles */
 .top,
 .bottom {
   height: 90px;
@@ -82,8 +74,8 @@ body {
   margin-left: 0.45vmin;
 }
 
+/* Lofidoro Container Styles */
 .lofidoro-container {
-  /* background-color: rgb(0, 0, 0, 0.5); */
   width: 100%;
   height: calc(100% - 90px);
   font-weight: bold;
@@ -94,12 +86,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* top: 50%; */
-  /* left: 50%; */
-  /* z-index: 2; */
-  /* transform: translate(-50%,-50%); */
 }
 
+/* Form Check Styles */
 .form-check-input {
   display: none;
 }
@@ -109,9 +98,8 @@ body {
   color: black;
 }
 
-/* Additional styling for the unchecked state */
 .form-check-input:not(:checked) + label {
-  background-color: rgba(0, 0, 0, 0); /* Set to transparent or any other color */
+  background-color: rgba(0, 0, 0, 0);
   color: white;
 }
 
@@ -120,6 +108,7 @@ body {
   line-height: 3.6vmin;
 }
 
+/* Button Styles */
 .lofidoro-container .btn {
   display: inline-block;
   color: var(--foreground-color);
@@ -136,6 +125,7 @@ body {
   font-family: "Space Grotesk", sans-serif;
 }
 
+/* Durations Styles */
 .lofidoro-durations {
   margin: 1vh 0;
   height: 10vh;
@@ -163,35 +153,7 @@ body {
   margin-bottom: 0.125rem;
 }
 
-.btn {
-  display: inline-block;
-  font-weight: 400;
-  line-height: 1.25;
-  color: #f8f9fa;
-  text-align: center;
-  text-decoration: none;
-  vertical-align: middle;
-  cursor: pointer;
-  user-select: none;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid rgba(0, 0, 0, 0);
-  padding: 0.675rem 1.25rem;
-  font-size: 1rem;
-  border-radius: 5rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.hidden {
-  display: none;
-}
-
-.lofidoro-timer {
-  font-size: 8rem;
-  letter-spacing: -0.25rem;
-  font-variant-numeric: tabular-nums;
-}
-
+/* Timer Styles */
 .lofidoro-timer {
   font-size: 11.5vmin;
   font-weight: 500;
@@ -201,8 +163,6 @@ body {
   width: 35vmin;
   height: 22vmin;
   display: grid;
-  /* justify-content: center;
-  align-items: center; */
   place-items: center;
 }
 
@@ -212,7 +172,7 @@ body {
   background-color: transparent;
 }
 
-/* No Circle / Border radius */
+/* Clock Actions Styles */
 .lofidoro-clock-actions {
   height: 10vh;
   margin: 1vh 0;
@@ -228,6 +188,23 @@ body {
   transform: scale(1.1);
 }
 
+/* Reset Button Styles */
+.lofidoro-clock-actions .resetBtn {
+  font-size: 2rem;
+  cursor: pointer;
+  animation: rotate 0.5s ease-in-out;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* LofiDoro Counts Display Styles */
 .lofiCountsDisplay {
   display: flex;
   justify-content: center;
@@ -261,10 +238,8 @@ body {
   }
 }
 
-/* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-
-@media (max-width: 550px) {
+/* Responsive Styles */
+@media screen and (max-width: 550px) {
   .top-left h2 {
     font-size: 3.5vmin;
   }
@@ -287,18 +262,15 @@ body {
   }
   .lofidoro-durations {
     margin: 0.5vh;
-    height: 17vh;
+    width: 75%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
   }
   .lofidoro-timer {
     width: 220px;
     height: 220px;
     font-size: 40px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9), 0px 0px 20px rgba(0, 0, 0, 0.9),
-      0px 0px 30px rgba(0, 0, 0, 0.5);
-    /* border-radius: 50%; */
   }
 
   .lofidoro-clock-actions {
