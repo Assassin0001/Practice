@@ -25,6 +25,7 @@ document.querySelectorAll('input[name="timerType"]').forEach((radio) => {
     (paused = false), (running = false);
     stopTimer();
     updateTimer();
+    updateTitle("");
   });
 });
 
@@ -54,6 +55,10 @@ const countDown = (time) => {
     if (time < 0) {
       running = false;
       stopTimer();
+      
+      //Timer Sound
+      const timerSound = document.getElementById("timerSound");
+      timerSound.play();
 
       if (isBreak) {
         isBreak = false;
@@ -138,4 +143,5 @@ resetBtn.addEventListener("click",function() {
   updateButtonText("Start");
   stopTimer();
   updateTimer();
+  updateTitle("");
 });
