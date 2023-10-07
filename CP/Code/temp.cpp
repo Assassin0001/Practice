@@ -13,12 +13,19 @@ using namespace std;
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 
 void solve() {
-	read(N); read(M);
-	vector<int> days(M);
-	for (int i = 0; i < M; i++) {
+	read(P); read(Q);
+
+	vector<int> first(P);
+	for (int i = 0; i < P; i++) {
+		cin >> first[i];
+	}
+
+	vector<int> second(Q);
+	for (int i = 0; i < Q; i++) {
 		cin >> days[i];
 	}
-	sort(days.begin(), days.end());
+	sort(first.begin(), first.end());
+	sort(second.begin(), second.end());
 	int j = 0;
 	for (int i = 1; i <= N; i++) {
 		if (i > days[j]) {j++;}
