@@ -9,8 +9,8 @@ import { TrainingService } from '../training.service';
   styleUrls: ['./current-training.component.css'],
 })
 export class CurrentTrainingComponent implements OnInit {
-  progress = 0;
-  timer!: number;
+  progress: number = 0;
+  timer: any;
 
   constructor(
     private dialog: MatDialog,

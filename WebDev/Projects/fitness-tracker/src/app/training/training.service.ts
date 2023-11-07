@@ -53,4 +53,8 @@ export class TrainingService {
     this.runningExercise = null;
     this.exerciseChanged.next(null);
   }
+
+  getCompletedorCancelledExercises(){
+    return this.exercises.slice();
+  }
 }
