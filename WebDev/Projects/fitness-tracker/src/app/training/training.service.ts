@@ -1,24 +1,50 @@
 import { Exercise } from './exercise.model';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { environment } from 'src/enivironments/environment';
 import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
-
-  private availableExercises: Exercise[] = [
-    { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-    { id: 'touch-toes', name: 'Touch-toes', duration: 80, calories: 15 },
-    { id: 'side-lunges', name: 'Side-lunges', duration: 120, calories: 18 },
-    { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 },
-  ];
-
-  private exercises: Exercise[] = [];
+  exercisesChanged = new Subject<Exercise[]>();
+  finishedExercisesChanged = new Subject<Exercise[]>();
+  private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
 
-  constructor() {}
+  app: any;
+  db: Firestore;
 
-  getAvailableExercises() {
-    //Slice creates a copy of array
-    return this.availableExercises.slice();
+  constructor() {
+    this.app = initializeApp(environment.firebaseConfig);
+    this.db = getFirestore(this.app);
+  }
+
+  fetchvailableExercises() {
+    const exercisesCollection = collection(this.db, 'availableExercises');
+
+    getDocs(exercisesCollection).then((querySnapshot) => {
+      const exercises = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          name: data['name'],
+          duration: data['duration'],
+          calories: data['calories'],
+        };
+      });
+
+      this.availableExercises = exercises;
+      this.exercisesChanged.next([...this.availableExercises]);
+      console.log(this.availableExercises , 'Fetch');
+    });
   }
 
   getRunningExercise() {
@@ -33,28 +59,39 @@ export class TrainingService {
   }
 
   completeExercise() {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       date: new Date(),
-      state: 'completed'
+      state: 'completed',
     });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
   }
 
   cancelExercise(progress: number) {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       duration: this.runningExercise.duration * (progress / 100),
       calories: this.runningExercise.calories * (progress / 100),
       date: new Date(),
-      state: 'cancelled'
+      state: 'cancelled',
     });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
   }
 
-  getCompletedorCancelledExercises(){
-    return this.exercises.slice();
+  fetchCompletedorCancelledExercises() {
+    const finishedExercisesCollection = collection(this.db, 'finishedExercises');
+
+    // Read About Below Functions
+    getDocs(finishedExercisesCollection).then((querySnapshot) => {
+      const exercises = querySnapshot.docs.map((doc) => doc.data() as Exercise);
+      this.finishedExercisesChanged.next(exercises);
+    });
+  }
+
+  private addDataToDatabase(exercise: Exercise){
+    const finishedExercisesCollection = collection(this.db, 'finishedExercises');
+    addDoc(finishedExercisesCollection, exercise);
   }
 }
