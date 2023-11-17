@@ -1,7 +1,7 @@
 // Use Firebase JDK for Connection
 export const environment = {
   production: false,
-  firebase: {
+  firebaseConfig: {
     apiKey: "AIzaSyA0oPthEN8vRqDrjQUY_m37m22u4U7bDb8",
     authDomain: "fitness-tracker-7f35b.firebaseapp.com",
     projectId: "fitness-tracker-7f35b",

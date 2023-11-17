@@ -14,29 +14,38 @@ using namespace std;
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 
 void solve() {
-	read(n); read(k);
-	string a; cin >> a;
+	read(n);
+	vl months(n);
+	for (int i = 0; i < n; i++) {
+		cin >> months[i];
+	}
 
-	unordered_map<char, int> freq;
-	for (auto it : a) {	freq[it]++; }
-	int disnct = 0;
-	for (auto it : freq) {
-		if (it.second == 1) disnct++;
+	ll repDigitSum = 0;
+	for (int i = 0; i < n; i++) {
+		int onePlace = months[i] % 10;
+		int maxRange = (11 * months[i]);
+		if ((i + 1) <= 9) {
+			if (months[i] >= maxRange) repDigitSum += 2;
+			else if (months[i] >= i) repDigitSum += 1;
+		}
+		else if (i + 1 <= 99) {
+			int tenPlace = months[i] / 10;
+			if (tenPlace != onePlace) continue;
+			else {
+				if (months[i] >= maxRange) repDigitSum += 2;
+				else if (months[i] >= i) repDigitSum += 1;
+			}
+		}
+		else {
+			if (months[i] == 100) repDigitSum += 1;
+		}
 	}
-	int len = n - k;
-	if (len % 2) {
-		if (k % 2)	disnct <= k + 1 ? yes : no;
-		else disnct <= k + 1 ? yes : no;
-	}
-	else {
-		if (k % 2) disnct <= k + 1 ? yes : no;
-		else disnct <= k ? yes : no;
-	}
+	cout << repDigitSum << endl;
 }
 
 int main() {
 	fast_io;
-	int t; cin >> t;
+	int t = 1; //cin >> t;
 	while (t--) {
 		solve();
 	}
