@@ -62,13 +62,15 @@
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
       <mat-datepicker #date></mat-datepicker>
+      <mat-error>Field must not be empty.</mat-error>
     </mat-form-field>
 
     <!-- MatFormfield takes input,textarea as child for wrapping wheras checkbox is standalone
          Can use { labelPosition="before" } -->
-    <mat-checkbox name="agree" ngModel required color="primary"
-      >Agree to Terms and Conditions.</mat-checkbox
-    >
+    <mat-checkbox name="agree" [(ngModel)]="agreeToTerms" required color="primary">
+      Agree to Terms and Conditions.
+    </mat-checkbox>
+
     <button mat-raised-button type="submit" color="primary" [disabled] ="myForm.invalid">Submit</button>
   </form>
 </section>

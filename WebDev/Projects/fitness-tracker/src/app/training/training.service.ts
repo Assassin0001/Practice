@@ -7,7 +7,7 @@ import {
   getFirestore,
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
-import { environment } from 'src/enivironments/environment';
+import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -19,12 +19,11 @@ export class TrainingService {
   private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
 
-  app: any;
   db: Firestore;
 
   constructor() {
-    this.app = initializeApp(environment.firebaseConfig);
-    this.db = getFirestore(this.app);
+    const app = initializeApp(environment.firebaseConfig);
+    this.db = getFirestore(app);
   }
 
   fetchvailableExercises() {
