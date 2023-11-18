@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
@@ -24,7 +23,6 @@ export class AuthService {
   constructor(
     private router: Router,
     private trainingService: TrainingService,
-    private snackBar: MatSnackBar,
     private uiService: UIService
   ) {
     // Call the auth listener when the service is created
@@ -62,9 +60,7 @@ export class AuthService {
       })
       .catch((error) => {
         this.uiService.lodaingStateChanged.next(false);
-        this.snackBar.open(error.message, null, {
-          duration: 3000,
-        });
+        this.uiService.showSnackBar(error.message, null, 3000);
       });
   }
 
@@ -79,9 +75,7 @@ export class AuthService {
       })
       .catch((error) => {
         this.uiService.lodaingStateChanged.next(false);
-        this.snackBar.open(error.message, null, {
-          duration: 3000,
-        });
+        this.uiService.showSnackBar(error.message, null, 3000);
       });
   }
 

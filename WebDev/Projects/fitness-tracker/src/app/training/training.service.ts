@@ -27,7 +27,7 @@ export class TrainingService {
     this.db = getFirestore(app);
   }
 
-  fetchvailableExercises() {
+  fetchAvailableExercises() {
     this.uiService.lodaingStateChanged.next(true);
     const exercisesCollection = collection(this.db, 'availableExercises');
 
@@ -48,6 +48,10 @@ export class TrainingService {
         this.uiService.lodaingStateChanged.next(false);
         this.availableExercises = exercises;
         this.exercisesChanged.next([...this.availableExercises]);
+      }, error =>{
+        this.uiService.lodaingStateChanged.next(false);
+        this.uiService.showSnackBar(('Fetching Exercises Failed, Try again later'), null, 3000);
+        this.exercisesChanged.next([null]);
       })
     );
   }
@@ -92,11 +96,19 @@ export class TrainingService {
   fetchCompletedorCancelledExercises() {
     const finishedExercisesCollection = collection(this.db, 'finishedExercises');
 
-    // Read About Below Functions
-    getDocs(finishedExercisesCollection).then((querySnapshot) => {
-      const exercises = querySnapshot.docs.map((doc) => doc.data() as Exercise);
-      this.finishedExercisesChanged.next(exercises);
-    });
+    this.fbSubs.push(
+      from(getDocs(finishedExercisesCollection)).pipe(
+        map((querySnapshot) => querySnapshot.docs.map((doc) => doc.data() as Exercise))
+      ).subscribe(
+        (exercises) => {
+          this.finishedExercisesChanged.next(exercises);
+        },
+        (error) => {
+          this.uiService.lodaingStateChanged.next(false);
+          this.uiService.showSnackBar('Fetching Completed or Cancelled Exercises Failed, Try again later', null, 3000);
+        }
+      )
+    );
   }
 
   private addDataToDatabase(exercise: Exercise){

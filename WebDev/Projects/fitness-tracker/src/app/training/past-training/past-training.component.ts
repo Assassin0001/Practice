@@ -38,7 +38,9 @@ export class PastTrainingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
+    if(this.exChangedSubscription){
       this.exChangedSubscription.unsubscribe();
+    }
   }
 }
 
