@@ -8,6 +8,7 @@ import { enableProdMode } from '@angular/core';
 if (environment.production) {
   enableProdMode();
 }
+
 initializeApp(environment.firebaseConfig);
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));

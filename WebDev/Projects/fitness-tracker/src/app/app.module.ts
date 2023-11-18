@@ -19,6 +19,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/training.service';
 import { TimestampPipe } from './training/timestamp.pipe';
+import { UIService } from './shared/ui.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { TimestampPipe } from './training/timestamp.pipe';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [AuthService,TrainingService],
+  providers: [AuthService,TrainingService, UIService],
   bootstrap: [AppComponent],
 })
 

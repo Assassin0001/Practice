@@ -1,3 +1,4 @@
+import { UIService } from './../../shared/ui.service';
 import { Exercise } from './../exercise.model';
 import { TrainingService } from './../training.service';
 import { Component, EventEmitter, Injectable, OnDestroy, OnInit, Output } from '@angular/core';
@@ -14,10 +15,15 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   @Output() trainingStart = new EventEmitter<void>();
   exercises: Exercise[];
   exerciseSubscription: Subscription;
+  isLoading = true;
+  private loadingSubscription: Subscription;
 
-  constructor(private trainingService: TrainingService) {}
+  constructor(private trainingService: TrainingService, private uiService: UIService) {}
 
   ngOnInit() {
+    this.loadingSubscription = this.uiService.lodaingStateChanged.subscribe(isLoading =>{
+      this.isLoading = isLoading;
+    });
     this.exerciseSubscription = this.trainingService.exercisesChanged.subscribe(
       (exercises) => {
         this.exercises = exercises;
@@ -32,5 +38,6 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.exerciseSubscription.unsubscribe();
+    this.loadingSubscription.unsubscribe();
   }
 }

@@ -67,10 +67,24 @@
 
     <!-- MatFormfield takes input,textarea as child for wrapping wheras checkbox is standalone
          Can use { labelPosition="before" } -->
-    <mat-checkbox name="agree" [(ngModel)]="agreeToTerms" required color="primary">
+    <mat-checkbox
+      name="agree"
+      [(ngModel)]="agreeToTerms"
+      required
+      color="primary"
+    >
       Agree to Terms and Conditions.
     </mat-checkbox>
 
-    <button mat-raised-button type="submit" color="primary" [disabled] ="myForm.invalid">Submit</button>
+    <button
+      *ngIf="!isLoading"
+      mat-raised-button
+      type="submit"
+      color="primary"
+      [disabled]="myForm.invalid"
+    >
+      Submit
+    </button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
 </section>
