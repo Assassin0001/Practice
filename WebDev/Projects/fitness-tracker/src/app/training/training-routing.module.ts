@@ -11,5 +11,4 @@ const routes: Routes = [
   ],
 })
 export class TrainingRoutingModule{
-
 }
