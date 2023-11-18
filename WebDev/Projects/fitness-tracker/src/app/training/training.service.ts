@@ -11,6 +11,9 @@ import { environment } from 'src/environments/environment';
 import { Subject, Subscription, from, map } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { UIService } from '../shared/ui.service';
+import * as UI from '../shared/ui.actions';
+import * as fromRoot from '../app.reducer';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class TrainingService {
@@ -22,13 +25,13 @@ export class TrainingService {
   private fbSubs: Subscription[] = [];
 
   db: Firestore;
-  constructor(private uiService: UIService) {
+  constructor(private uiService: UIService, private store: Store<fromRoot.State>) {
     const app = initializeApp(environment.firebaseConfig);
     this.db = getFirestore(app);
   }
 
   fetchAvailableExercises() {
-    this.uiService.lodaingStateChanged.next(true);
+    this.store.dispatch(new UI.StartLoading());
     const exercisesCollection = collection(this.db, 'availableExercises');
 
     this.fbSubs.push(
@@ -45,11 +48,11 @@ export class TrainingService {
           })
         )
       ).subscribe((exercises) => {
-        this.uiService.lodaingStateChanged.next(false);
+        this.store.dispatch(new UI.StopLoading());
         this.availableExercises = exercises;
         this.exercisesChanged.next([...this.availableExercises]);
       }, error =>{
-        this.uiService.lodaingStateChanged.next(false);
+        this.store.dispatch(new UI.StopLoading());
         this.uiService.showSnackBar(('Fetching Exercises Failed, Try again later'), null, 3000);
         this.exercisesChanged.next([null]);
       })
@@ -104,7 +107,7 @@ export class TrainingService {
           this.finishedExercisesChanged.next(exercises);
         },
         (error) => {
-          this.uiService.lodaingStateChanged.next(false);
+          this.store.dispatch(new UI.StopLoading());
           this.uiService.showSnackBar('Fetching Completed or Cancelled Exercises Failed, Try again later', null, 3000);
         }
       )

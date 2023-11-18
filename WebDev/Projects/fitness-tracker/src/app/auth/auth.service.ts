@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthData } from './auth-data.model';
-import { Subject } from 'rxjs';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  User,
   onAuthStateChanged,
 } from 'firebase/auth';
 import { TrainingService } from '../training/training.service';
 import { UIService } from '../shared/ui.service';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../app.reducer';
+import * as UI from '../shared/ui.actions';
+import * as Auth from '../auth/auth.actions';
 
 @Injectable()
 export class AuthService {
   private isAuthenticated = false;
-  private user: User | null = null;
-  //Observable
-  authChange = new Subject<boolean>();
 
   constructor(
     private router: Router,
     private trainingService: TrainingService,
-    private uiService: UIService
+    private uiService: UIService,
+    private store: Store<fromRoot.State>
   ) {
     // Call the auth listener when the service is created
     this.initAuthListener();
@@ -36,13 +36,12 @@ export class AuthService {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is authenticated
-        this.isAuthenticated = true;
-        this.authChange.next(true);
+        this.store.dispatch(new Auth.SetAuthenticated());
         this.router.navigate(['/training']);
       } else {
         // User is not authenticated
         this.trainingService.cancelSubscriptions();
-        this.authChange.next(false);
+        this.store.dispatch(new Auth.SetUnauthenticated());
         this.router.navigate(['/login']);
         this.isAuthenticated = false;
       }
@@ -50,31 +49,30 @@ export class AuthService {
   }
 
   registerUser(authData: AuthData) {
-    this.uiService.lodaingStateChanged.next(true);
+    this.store.dispatch(new UI.StartLoading());
     const auth = getAuth();
 
     createUserWithEmailAndPassword(auth, authData.email, authData.password)
       .then((res) => {
-        this.uiService.lodaingStateChanged.next(false);
+        this.store.dispatch(new UI.StopLoading());
         console.log(res);
       })
       .catch((error) => {
-        this.uiService.lodaingStateChanged.next(false);
+        this.store.dispatch(new UI.StopLoading())
         this.uiService.showSnackBar(error.message, null, 3000);
       });
   }
 
   login(authData: AuthData) {
-    this.uiService.lodaingStateChanged.next(true);
+    this.store.dispatch(new UI.StartLoading())
     const auth = getAuth();
 
     signInWithEmailAndPassword(auth, authData.email, authData.password)
       .then((result) => {
-        this.uiService.lodaingStateChanged.next(false);
-        // console.log(result);
+        this.store.dispatch(new UI.StopLoading())
       })
       .catch((error) => {
-        this.uiService.lodaingStateChanged.next(false);
+        this.store.dispatch(new UI.StopLoading())
         this.uiService.showSnackBar(error.message, null, 3000);
       });
   }
