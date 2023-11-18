@@ -1,24 +1,63 @@
 import { Exercise } from './exercise.model';
-import { Subject } from 'rxjs';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { environment } from 'src/environments/environment';
+import { Subject, Subscription, from, map } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { UIService } from '../shared/ui.service';
 
+@Injectable()
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
-
-  private availableExercises: Exercise[] = [
-    { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-    { id: 'touch-toes', name: 'Touch-toes', duration: 80, calories: 15 },
-    { id: 'side-lunges', name: 'Side-lunges', duration: 120, calories: 18 },
-    { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 },
-  ];
-
-  private exercises: Exercise[] = [];
+  exercisesChanged = new Subject<Exercise[]>();
+  finishedExercisesChanged = new Subject<Exercise[]>();
+  private availableExercises: Exercise[] = [];
   private runningExercise: Exercise;
+  private fbSubs: Subscription[] = [];
 
-  constructor() {}
+  db: Firestore;
+  constructor(private uiService: UIService) {
+    const app = initializeApp(environment.firebaseConfig);
+    this.db = getFirestore(app);
+  }
 
-  getAvailableExercises() {
-    //Slice creates a copy of array
-    return this.availableExercises.slice();
+  fetchAvailableExercises() {
+    this.uiService.lodaingStateChanged.next(true);
+    const exercisesCollection = collection(this.db, 'availableExercises');
+
+    this.fbSubs.push(
+      from(getDocs(exercisesCollection)).pipe(
+        map((querySnapshot) =>
+          querySnapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              name: data['name'],
+              duration: data['duration'],
+              calories: data['calories'],
+            };
+          })
+        )
+      ).subscribe((exercises) => {
+        this.uiService.lodaingStateChanged.next(false);
+        this.availableExercises = exercises;
+        this.exercisesChanged.next([...this.availableExercises]);
+      }, error =>{
+        this.uiService.lodaingStateChanged.next(false);
+        this.uiService.showSnackBar(('Fetching Exercises Failed, Try again later'), null, 3000);
+        this.exercisesChanged.next([null]);
+      })
+    );
+  }
+
+  cancelSubscriptions(){
+    this.fbSubs.forEach(sub => sub.unsubscribe());
   }
 
   getRunningExercise() {
@@ -33,24 +72,47 @@ export class TrainingService {
   }
 
   completeExercise() {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       date: new Date(),
-      state: 'completed'
+      state: 'completed',
     });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
   }
 
   cancelExercise(progress: number) {
-    this.exercises.push({
+    this.addDataToDatabase({
       ...this.runningExercise,
       duration: this.runningExercise.duration * (progress / 100),
       calories: this.runningExercise.calories * (progress / 100),
       date: new Date(),
-      state: 'cancelled'
+      state: 'cancelled',
     });
     this.runningExercise = null;
     this.exerciseChanged.next(null);
+  }
+
+  fetchCompletedorCancelledExercises() {
+    const finishedExercisesCollection = collection(this.db, 'finishedExercises');
+
+    this.fbSubs.push(
+      from(getDocs(finishedExercisesCollection)).pipe(
+        map((querySnapshot) => querySnapshot.docs.map((doc) => doc.data() as Exercise))
+      ).subscribe(
+        (exercises) => {
+          this.finishedExercisesChanged.next(exercises);
+        },
+        (error) => {
+          this.uiService.lodaingStateChanged.next(false);
+          this.uiService.showSnackBar('Fetching Completed or Cancelled Exercises Failed, Try again later', null, 3000);
+        }
+      )
+    );
+  }
+
+  private addDataToDatabase(exercise: Exercise){
+    const finishedExercisesCollection = collection(this.db, 'finishedExercises');
+    addDoc(finishedExercisesCollection, exercise);
   }
 }
