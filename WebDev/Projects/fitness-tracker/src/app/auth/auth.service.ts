@@ -71,7 +71,7 @@ export class AuthService {
     signInWithEmailAndPassword(auth, authData.email, authData.password)
       .then((result) => {
         this.uiService.lodaingStateChanged.next(false);
-        console.log(result);
+        // console.log(result);
       })
       .catch((error) => {
         this.uiService.lodaingStateChanged.next(false);

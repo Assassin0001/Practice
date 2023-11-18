@@ -11,7 +11,6 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/training.service';
 import { UIService } from './shared/ui.service';
-import { TrainingModule } from './training/training.module';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { AuthModule } from './auth/auth.module';
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
-    TrainingModule,
     AuthModule,
   ],
   providers: [AuthService,TrainingService, UIService],
