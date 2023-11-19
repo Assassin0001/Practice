@@ -34,37 +34,38 @@ export class TrainingService {
     const exercisesCollection = collection(this.db, 'availableExercises');
 
     this.fbSubs.push(
-      from(getDocs(exercisesCollection)).pipe(
-        map((querySnapshot) =>
-          querySnapshot.docs.map((doc) => {
-            const data = doc.data();
-            return {
-              id: doc.id,
-              name: data['name'],
-              duration: data['duration'],
-              calories: data['calories'],
-            };
-          })
+      from(getDocs(exercisesCollection))
+        .pipe(
+          map((querySnapshot) =>
+            querySnapshot.docs.map((doc) => {
+              const data = doc.data();
+              return {
+                id: doc.id,
+                name: data['name'],
+                duration: data['duration'],
+                calories: data['calories'],
+              };
+            })
+          )
         )
-      ).subscribe({
-        next: (exercises) => {
-          this.store.dispatch(new UI.StopLoading());
-          console.log('TrainingService', exercises);
-          this.store.dispatch(new Training.SetAvailableTrainings(exercises));
-        },
-        error: (error) => {
-          this.store.dispatch(new UI.StopLoading());
-          console.error('TrainingService', error);
-          this.uiService.showSnackBar(
-            'Fetching Exercises Failed, Try again later',
-            null,
-            3000
-          );
-        },
-      })
+        .subscribe({
+          next: (exercises) => {
+            this.store.dispatch(new UI.StopLoading());
+            console.log('TrainingService', exercises);
+            this.store.dispatch(new Training.SetAvailableTrainings(exercises));
+          },
+          error: (error) => {
+            this.store.dispatch(new UI.StopLoading());
+            console.error('TrainingService', error);
+            this.uiService.showSnackBar(
+              'Fetching Exercises Failed, Try again later',
+              null,
+              3000
+            );
+          },
+        })
     );
   }
-
 
   cancelSubscriptions() {
     this.fbSubs.forEach((sub) => sub.unsubscribe());
@@ -119,7 +120,7 @@ export class TrainingService {
         )
         .subscribe({
           next: (exercises) => {
-            this.store.dispatch(new Training.SetAvailableTrainings(exercises));
+            this.store.dispatch(new Training.SetFinishedTrainings(exercises));
           },
           error: (error) => {
             console.log(error);

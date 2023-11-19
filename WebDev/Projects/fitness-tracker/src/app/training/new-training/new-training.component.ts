@@ -27,7 +27,9 @@ export class NewTrainingComponent implements OnInit {
   }
 
   fetchExercises(){
+    console.log('Fetching Exercises');
     this.trainingService.fetchAvailableExercises();
+    console.log('Fetch Exercise', this.exercises$);
   }
 
   onStartTraining(form: NgForm) {
