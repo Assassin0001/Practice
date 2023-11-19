@@ -51,12 +51,10 @@ export class TrainingService {
         .subscribe({
           next: (exercises) => {
             this.store.dispatch(new UI.StopLoading());
-            console.log('TrainingService', exercises);
             this.store.dispatch(new Training.SetAvailableTrainings(exercises));
           },
           error: (error) => {
             this.store.dispatch(new UI.StopLoading());
-            console.error('TrainingService', error);
             this.uiService.showSnackBar(
               'Fetching Exercises Failed, Try again later',
               null,
@@ -123,7 +121,6 @@ export class TrainingService {
             this.store.dispatch(new Training.SetFinishedTrainings(exercises));
           },
           error: (error) => {
-            console.log(error);
             this.store.dispatch(new UI.StopLoading());
             this.uiService.showSnackBar(
               'Fetching Completed or Cancelled Exercises Failed, Try again later',

@@ -1,6 +1,12 @@
 import { Exercise } from './../exercise.model';
 import { TrainingService } from './../training.service';
-import { Component, EventEmitter, Injectable, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Injectable,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../../app.reducer';
@@ -16,9 +22,12 @@ import { Store } from '@ngrx/store';
 export class NewTrainingComponent implements OnInit {
   @Output() trainingStart = new EventEmitter<void>();
   exercises$: Observable<Exercise[]>;
-  isLoading$ : Observable<boolean>;
+  isLoading$: Observable<boolean>;
 
-  constructor(private trainingService: TrainingService, private store: Store<fromTraining.State>) {}
+  constructor(
+    private trainingService: TrainingService,
+    private store: Store<fromTraining.State>
+  ) {}
 
   ngOnInit() {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
@@ -26,10 +35,8 @@ export class NewTrainingComponent implements OnInit {
     this.fetchExercises();
   }
 
-  fetchExercises(){
-    console.log('Fetching Exercises');
+  fetchExercises() {
     this.trainingService.fetchAvailableExercises();
-    console.log('Fetch Exercise', this.exercises$);
   }
 
   onStartTraining(form: NgForm) {
