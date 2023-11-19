@@ -2,6 +2,7 @@
 
 #Modules
 /node_modules
+/dist
 
 # Compiled output
 /dist
