@@ -1,7 +1,6 @@
-import { UIService } from './../../shared/ui.service';
 import { Exercise } from './../exercise.model';
 import { TrainingService } from './../training.service';
-import { Component, EventEmitter, Injectable, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../../app.reducer';
@@ -19,7 +18,7 @@ export class NewTrainingComponent implements OnInit {
   exercises$: Observable<Exercise[]>;
   isLoading$ : Observable<boolean>;
 
-  constructor(private trainingService: TrainingService, private uiService: UIService, private store: Store<fromTraining.State>) {}
+  constructor(private trainingService: TrainingService, private store: Store<fromTraining.State>) {}
 
   ngOnInit() {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
@@ -31,7 +30,7 @@ export class NewTrainingComponent implements OnInit {
     this.trainingService.fetchAvailableExercises();
   }
 
-  onstartTraining(form: NgForm) {
+  onStartTraining(form: NgForm) {
     this.trainingService.startExercise(form.value.exercise);
   }
 }
