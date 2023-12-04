@@ -1,13 +1,4 @@
 {
-  "targets": {
-    "fitness-tracker-7f35b": {
-      "hosting": {
-        "Fitness-tracker": [
-          "fitness-tracker-7f35b"
-        ]
-      }
-    }
-  },
   "projects": {
     "default": "fitness-tracker-7f35b"
   }

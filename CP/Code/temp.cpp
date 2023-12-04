@@ -14,33 +14,7 @@ using namespace std;
 #define fast_io ios_base::sync_with_stdio(false);cin.tie(NULL)
 
 void solve() {
-	read(n);
-	vl months(n);
-	for (int i = 0; i < n; i++) {
-		cin >> months[i];
-	}
 
-	ll repDigitSum = 0;
-	for (int i = 0; i < n; i++) {
-		int onePlace = months[i] % 10;
-		int maxRange = (11 * months[i]);
-		if ((i + 1) <= 9) {
-			if (months[i] >= maxRange) repDigitSum += 2;
-			else if (months[i] >= i) repDigitSum += 1;
-		}
-		else if (i + 1 <= 99) {
-			int tenPlace = months[i] / 10;
-			if (tenPlace != onePlace) continue;
-			else {
-				if (months[i] >= maxRange) repDigitSum += 2;
-				else if (months[i] >= i) repDigitSum += 1;
-			}
-		}
-		else {
-			if (months[i] == 100) repDigitSum += 1;
-		}
-	}
-	cout << repDigitSum << endl;
 }
 
 int main() {

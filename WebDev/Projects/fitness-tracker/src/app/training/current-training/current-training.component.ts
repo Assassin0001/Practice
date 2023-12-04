@@ -19,7 +19,7 @@ export class CurrentTrainingComponent implements OnInit {
     private dialog: MatDialog,
     private trainingService: TrainingService,
     private store: Store<fromTraining.State>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.startOrResumeTimer();

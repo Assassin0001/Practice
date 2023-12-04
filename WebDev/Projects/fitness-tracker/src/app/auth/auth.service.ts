@@ -37,11 +37,13 @@ export class AuthService {
       if (user) {
         // User is authenticated
         this.store.dispatch(new Auth.SetAuthenticated());
+        this.store.dispatch(new Auth.SetUserEmail(user.email));
         this.router.navigate(['/training']);
       } else {
         // User is not authenticated
         this.trainingService.cancelSubscriptions();
         this.store.dispatch(new Auth.SetUnauthenticated());
+        this.store.dispatch(new Auth.ClearUserEmail());
         this.router.navigate(['/login']);
         this.isAuthenticated = false;
       }

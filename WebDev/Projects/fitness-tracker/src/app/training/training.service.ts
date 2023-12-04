@@ -1,3 +1,4 @@
+import { getAuthState } from './../app.reducer';
 import { Exercise } from './exercise.model';
 import {
   Firestore,
@@ -8,12 +9,13 @@ import {
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
-import { Subscription, from, map, take } from 'rxjs';
+import { Subscription, catchError, from, map, take } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { UIService } from '../shared/ui.service';
 import * as UI from '../shared/ui.actions';
 import * as Training from './training.actions';
 import * as fromTraining from './training.reducer';
+import * as fromAuth from '../auth/auth.reducer';
 import { Store } from '@ngrx/store';
 
 @Injectable()
@@ -23,7 +25,8 @@ export class TrainingService {
   db: Firestore;
   constructor(
     private uiService: UIService,
-    private store: Store<fromTraining.State>
+    private store: Store<fromTraining.State>,
+    private authStore: Store<fromAuth.State>
   ) {
     const app = initializeApp(environment.firebaseConfig);
     this.db = getFirestore(app);
@@ -75,68 +78,87 @@ export class TrainingService {
 
   completeExercise() {
     this.store
-      .select(fromTraining.getActiveTraining)
+      .select((state: { auth: fromAuth.State }) => state.auth.userEmail)
       .pipe(take(1))
-      .subscribe((ex) => {
-        this.addDataToDatabase({
-          ...ex,
-          date: new Date(),
-          state: 'completed',
-        });
-        this.store.dispatch(new Training.StopTraining());
+      .subscribe((userEmail: string) => {
+        if (userEmail) {
+          this.store
+            .select(fromTraining.getActiveTraining)
+            .pipe(take(1))
+            .subscribe((ex) => {
+              this.addDataToDatabase(
+                {
+                  ...ex,
+                  date: new Date(),
+                  state: 'completed',
+                },
+                userEmail
+              );
+              this.store.dispatch(new Training.StopTraining());
+            });
+        }
       });
   }
 
   cancelExercise(progress: number) {
     this.store
-      .select(fromTraining.getActiveTraining)
+      .select((state: { auth: fromAuth.State }) => state.auth.userEmail)
       .pipe(take(1))
-      .subscribe((ex) => {
-        this.addDataToDatabase({
-          ...ex,
-          duration: ex.duration * (progress / 100),
-          calories: ex.calories * (progress / 100),
-          date: new Date(),
-          state: 'cancelled',
-        });
-        this.store.dispatch(new Training.StopTraining());
+      .subscribe((userEmail: string) => {
+        if (userEmail) {
+          this.store
+            .select(fromTraining.getActiveTraining)
+            .pipe(take(1))
+            .subscribe((ex) => {
+              this.addDataToDatabase(
+                {
+                  ...ex,
+                  duration: ex.duration * (progress / 100),
+                  calories: ex.calories * (progress / 100),
+                  date: new Date(),
+                  state: 'cancelled',
+                },
+                userEmail
+              );
+              this.store.dispatch(new Training.StopTraining());
+            });
+        }
       });
   }
 
-  fetchCompletedorCancelledExercises() {
-    const finishedExercisesCollection = collection(
-      this.db,
-      'finishedExercises'
-    );
+  fetchCompletedorCancelledExercises(userEmail: string) {
+    console.log('Provided user email:', userEmail);
 
-    this.fbSubs.push(
-      from(getDocs(finishedExercisesCollection))
-        .pipe(
-          map((querySnapshot) =>
-            querySnapshot.docs.map((doc) => doc.data() as Exercise)
-          )
-        )
-        .subscribe({
-          next: (exercises) => {
-            this.store.dispatch(new Training.SetFinishedTrainings(exercises));
-          },
-          error: (error) => {
-            this.store.dispatch(new UI.StopLoading());
-            this.uiService.showSnackBar(
-              'Fetching Completed or Cancelled Exercises Failed, Try again later',
-              null,
-              3000
-            );
-          },
-        })
+    const finishedExercisesCollection = collection(this.db, 'finishedExercises');
+
+    // Return the observable from getDocs
+    return from(getDocs(finishedExercisesCollection)).pipe(
+      map((querySnapshot) =>
+        querySnapshot.docs
+          .map((doc) => doc.data() as Exercise)
+          .filter((exercise) => exercise.userEmail === userEmail)
+      ),
+      catchError((error) => {
+        console.error('Error fetching completed or cancelled exercises:', error);
+        throw error; // Re-throw the error to propagate it to the subscriber
+      })
     );
   }
 
-  private addDataToDatabase(exercise: Exercise) {
+  // private addDataToDatabase(exercise: Exercise) {
+  //   const finishedExercisesCollection = collection(
+  //     this.db,
+  //     'finishedExercises'
+  //   );
+  //   addDoc(finishedExercisesCollection, exercise);
+  // }
+
+  private addDataToDatabase(exercise: Exercise, userEmail: string) {
     const finishedExercisesCollection = collection(
       this.db,
       'finishedExercises'
     );
-    addDoc(finishedExercisesCollection, exercise);
+    const exerciseWithUser = { ...exercise, userEmail };
+    addDoc(finishedExercisesCollection, exerciseWithUser);
   }
 }
