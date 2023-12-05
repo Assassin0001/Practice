@@ -1,4 +1,3 @@
-import { getAuthState } from './../app.reducer';
 import { Exercise } from './exercise.model';
 import {
   Firestore,
@@ -26,7 +25,6 @@ export class TrainingService {
   constructor(
     private uiService: UIService,
     private store: Store<fromTraining.State>,
-    private authStore: Store<fromAuth.State>
   ) {
     const app = initializeApp(environment.firebaseConfig);
     this.db = getFirestore(app);
@@ -131,7 +129,7 @@ export class TrainingService {
 
     const finishedExercisesCollection = collection(this.db, 'finishedExercises');
 
-    // Return the observable from getDocs
+
     return from(getDocs(finishedExercisesCollection)).pipe(
       map((querySnapshot) =>
         querySnapshot.docs
@@ -140,18 +138,10 @@ export class TrainingService {
       ),
       catchError((error) => {
         console.error('Error fetching completed or cancelled exercises:', error);
-        throw error; // Re-throw the error to propagate it to the subscriber
+        throw error;
       })
     );
   }
-
-  // private addDataToDatabase(exercise: Exercise) {
-  //   const finishedExercisesCollection = collection(
-  //     this.db,
-  //     'finishedExercises'
-  //   );
-  //   addDoc(finishedExercisesCollection, exercise);
-  // }
 
   private addDataToDatabase(exercise: Exercise, userEmail: string) {
     const finishedExercisesCollection = collection(
